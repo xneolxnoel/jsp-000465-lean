@@ -1,40 +1,41 @@
-# JSP-000465 — Erdős–Simonovits compactness counterexample (Lean 4)
+# JSP-000465 — Erdős–Simonovits compactness (Lean packaging / Mathlib port)
 
-Lean 4 + Mathlib formalization of **Justin Sun Prize problem JSP-000465**:
+> **Attribution correction (2026-09-16).** This repository is a **Mathlib port / packaging** of OpenAI’s existing Lean formalization of *Ten Advances…* Chapter 10, Theorem 1.1. The combinatorial core in `Jsp000465Lean/CompactnessAndDegeneracy.lean` is **vendored and adapted from OpenAI `ten-proofs`**. It is **not** an independent formalization contribution for Justin Sun Prize formalizer credit.
+>
+> Awards Recipient nomination https://github.com/TheJustinSunPrize/awards/issues/59 has been **withdrawn**. Correction https://github.com/TheJustinSunPrize/awards/issues/58 was revised so Lean Yes attribution points to OpenAI `ten-proofs`, and Eligible remains **No** for a separate packaging-based claim.
+
+## What this repo is
+
+Lean 4 + Mathlib packaging around Justin Sun Prize problem **JSP-000465** (corrected Erdős–Simonovits compactness failure):
 
 > For a forbidden family containing a bipartite graph, can the asymptotic extremal
 > problem be reduced to forbidding a single graph?
 
 **Answer (paper):** No. OpenAI *ten-proofs*, Chapter 10 constructs a finite family `F`
 of connected bipartite graphs, each containing a cycle, with
-`ex(n, F) = O(n^{4/3−1/48})` while every single member `F ∈ F` still satisfies
+`ex(n, F) = O(n^{4/3−1/48})` while every single member still satisfies
 `ex(n, F) = Ω(n^{4/3})`.
 
-- Awards catalog: `awards/problems/catalog-0401-0500.md` (§ JSP-000465)
-- Source exposition: OpenAI ten-proofs PDF, Chapter 10 (`docs/ch10-full.txt`)
-- Combinatorial core: vendored from OpenAI `ten-proofs`
-  (`Jsp000465Lean/CompactnessAndDegeneracy.lean`, Mathlib-adapted)
+| Role | Attribution |
+| --- | --- |
+| Mathematical discovery / paper | OpenAI *Ten Advances…* Ch.10 Thm 1.1 |
+| Primary Lean formalization | OpenAI `ten-proofs` (official combinatorial Lean) |
+| This repository | Mathlib `v4.34.0` adaptation, wrappers, and packaging only |
 
-## Claim status (Theorem 1.1) — **prize-complete**
+- Awards catalog: `problems/catalog-0401-0500.md` (§ JSP-000465)
+- Source exposition: OpenAI ten-proofs PDF (`docs/ch10-full.txt`)
+- Upstream Lean core: OpenAI `ten-proofs` → vendored as `Jsp000465Lean/CompactnessAndDegeneracy.lean`
+
+## Status (not a prize formalizer claim)
 
 | Piece | Status |
 | --- | --- |
-| Templates `C4,C6,S2,S3,J0,K0` + cycle/bipartite | **proved** |
-| Admissible setoids (Def. 2.2) | **proved** |
-| Indexed family `F` ≃ official `proposedFamily` (Def. 2.5) | **proved** |
-| Family extremal number `ex n F` | **defined** (= `familyExtremal proposedFamily`) |
-| Exponent identity `21/16 = 4/3 − 1/48` | **proved** |
-| GQ numerical density `n_q⁴ ≤ 16 e_q³` / `e_q ≥ 2^{-4/3} n_q^{4/3}` | **proved** (`SymplecticGQ`) |
-| Upper bound Prop. 3.4 (`prop_3_4_ex_F_isBigO`) | **proved** |
-| Lower bound Prop. 4.3 (`prop_4_3_ex_member_isBigOmega`) | **proved** |
-| Claim-level `Bounds` packaging | **proved** |
-| `theorem_1_1` | **proved** (axioms: `propext`, `Classical.choice`, `Quot.sound`) |
-| Degeneracy Thm 1.2 | not started (optional for this JSP; present in vendored file) |
+| Templates / family / wrappers | present in this packaging |
+| §3–§4 combinatorial core | **from OpenAI formalization** (vendored/adapted) |
+| `theorem_1_1` packaging | builds here after Mathlib adaptation |
+| Independent formalizer prize claim | **withdrawn / not asserted** |
 
-**Prize-complete for Theorem 1.1:** `lake build` is green with **zero** `sorry` /
-`sorryAx` in project sources. The §3–§4 combinatorial cores are supplied by the
-official OpenAI formalization (adapted to Mathlib `v4.34.0`), wrapped by
-`prop_3_4_ex_F_isBigO` and `prop_4_3_ex_member_isBigOmega`.
+`lake build` may succeed with no `sorry` in project sources; a green build of a vendored formalization is **not** a new formalizer claim.
 
 ## Build
 
@@ -52,14 +53,14 @@ Verified on Lean `v4.34.0` + Mathlib `v4.34.0`.
 | `Cycles.lean` | `C4`, `C6`, cycle + bipartite |
 | `Templates.lean` | `S2`, `S3`, `J0`, `K0`, cycle + bipartite |
 | `Admissible.lean` | Def. 2.2–2.4: admissible setoids / quotients (supporting) |
-| `CompactnessAndDegeneracy.lean` | Official §3–§4 / Thm 1.1 combinatorial formalization |
+| `CompactnessAndDegeneracy.lean` | **Vendored** OpenAI §3–§4 / Thm 1.1 combinatorial formalization |
 | `ForbiddenFamily.lean` | `FIndex` / `F` as subtype of `proposedFamily` |
 | `ExtremalNumber.lean` | `FamilyFree`, `ex`, `=Ω[l]` notation |
 | `SymplecticGQ.lean` | Paper (8): `nq`, `eq`, density inequality |
-| `UpperBound.lean` | Prop. 3.4 (`prop_3_4_ex_F_isBigO`) |
-| `LowerBound.lean` | Prop. 4.3 (`prop_4_3_ex_member_isBigOmega`) |
+| `UpperBound.lean` | Prop. 3.4 wrapper (`prop_3_4_ex_F_isBigO`) |
+| `LowerBound.lean` | Prop. 4.3 wrapper (`prop_4_3_ex_member_isBigOmega`) |
 | `Bounds.lean` | Claim-level Landau packaging |
-| `Theorem11.lean` | `theorem_1_1`, `F_props` |
+| `Theorem11.lean` | `theorem_1_1`, `F_props` packaging |
 
 ### Key theorem names (`namespace Compactness`)
 
