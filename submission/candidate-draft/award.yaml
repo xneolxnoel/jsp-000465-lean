@@ -1,0 +1,26 @@
+# Draft observation candidate — replace YOUR_PUBLIC_REPO_URL; do not publish placeholders as fact.
+id: jsp-000465-compactness-formalization
+batch: null
+problem:
+  source: justin-sun-prize-problem-bank
+  number: JSP-000465
+  title_en: Erdős–Simonovits compactness conjecture (corrected form) — finite connected bipartite cyclic family counterexample
+  posed:
+    year: 1982
+    basis: bibliographic-upper-bound
+    citation: Erdős–Simonovits compactness conjecture; see JSP-000465 catalog entry and ES82 / Wig notes in ten-proofs Ch.10
+  resolved:
+    year: 2026
+decision: null
+recipients:
+  - id: RECIPIENT-JSP-000465-A
+    affiliation: null
+    contribution_en: Lean 4 formalization of OpenAI ten-proofs Theorem 1.1 (compactness failure), commit 0a33cdb87115672123a79deeea9546c46b97ef7b
+    confirmation: pending
+verification:
+  peer_review: null
+  formal: formal
+  independent_review: null
+conflicts: []
+status: draft
+revocation: null
